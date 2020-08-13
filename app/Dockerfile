@@ -10,7 +10,7 @@ ARG PUID=2000
 ARG PGID=2000
 ARG MM_BINARY=
 
-
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 # Install some needed packages
 RUN apk add --no-cache \
 	ca-certificates \

@@ -4,6 +4,7 @@ ENV DEFAULT_TIMEZONE UTC
 
 # Install some packages to use WAL
 RUN echo "azure<5.0.0" > pip-constraints.txt
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 RUN apk add --no-cache \
       build-base \
       curl \
@@ -15,8 +16,8 @@ RUN apk add --no-cache \
       py-cryptography \
       pv \
       libressl-dev \
-    && pip install --upgrade pip \
-    && pip --no-cache-dir install -c pip-constraints.txt 'wal-e<1.0.0' envdir \
+    && pip install -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com --upgrade pip \
+    && pip --no-cache-dir install -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com -c pip-constraints.txt 'wal-e<1.0.0' envdir \
     && rm -rf /var/cache/apk/* /tmp/* /var/tmp/*
 
 # Add wale script

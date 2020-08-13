@@ -1,6 +1,7 @@
 FROM nginx:mainline-alpine
 
 # Remove default configuration and add our custom Nginx configuration files
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 RUN rm /etc/nginx/conf.d/default.conf \
     && apk add --no-cache curl
 
